@@ -34,6 +34,16 @@ module.exports = {
       console.log(err);
     }
   },
+  updateItem: async (boardId, itemId, colId, values) => {
+    try {
+      console.log(values);
+      // let { data } = await monday(query.updateColumItem(boardId, itemId, colId, value));
+      console.log(data);
+    } catch (err) {
+      console.log(err)
+    }
+
+  },
   getItemColumns: async (groupId, itemId, boardId) => {
     try {
       let { data } = await monday(query.getItemColumns(boardId, groupId, itemId));
@@ -101,7 +111,7 @@ module.exports = {
         }
         if (field.type === "color" && field.title === 'סטאטוס') {
           await monday(`mutation {
-            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value === "עבר" ? 3 : null}") {
+            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value == true ? 3 : 12}") {
               id
             }
           }`);
@@ -119,9 +129,8 @@ module.exports = {
           return item;
         }
       })
-      return res[1];
-      // res = res.filter(i => i !== undefined);
-      // return
+      res = res.filter(r => r !== undefined);
+      return res[0];
     } catch (err) {
       console.log(err);
     }

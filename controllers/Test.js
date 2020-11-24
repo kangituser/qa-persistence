@@ -2,6 +2,7 @@ const Test = require("../models/Test");
 const errorHandler = require("../utils/http-error");
 const aux = require('./auxilliary');
 const createItem = require('./helpers/create-item');
+const updateItem = require("./helpers/update-item");
 
 exports.getTests = async (req, res, next) => {
   let tests;
@@ -34,16 +35,20 @@ exports.createOrUpdateTest = async (req, res, next) => {
       let groupTitle = groupExists.title;
       let item_Exists = await aux.itemExists(groupId, ID, board_id);
       // id, columns
-      let itemId = item_Exists.id;
-      let columns = item_Exists.column_values;
-
+      
       if (item_Exists) {
+        console.log('in the exists');
+        console.log(item_Exists.name);
+        let itemId = item_Exists.id;
+        let itemTitle = item_Exists.name;
+        let columns = item_Exists.column_values;
         // update the item
         await aux.mapDataToColumns(columns, req.body, itemId, board_id);
         // add data to database
-        await createItem(groupId, groupTitle, ID, board_id, req.body);
+        await updateItem(groupId, groupTitle, itemId, itemTitle, board_id, req.body );
 
       } else {
+        console.log('in the not supposed to exist');
         // create item
         await createItem(groupId, groupTitle, ID, board_id, req.body);
       }
