@@ -22,7 +22,7 @@ exports.getTests = async (req, res, next) => {
 // create || update test
 exports.createOrUpdateTest = async (req, res, next) => {
   const { ID, group } = req.body;
-  const board_id = 870992980;
+  const { board_id } = process.env;
 
   try {
     // check if group exists
