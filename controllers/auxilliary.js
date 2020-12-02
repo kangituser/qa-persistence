@@ -111,7 +111,7 @@ module.exports = {
         }
         if (field.type === "color" && field.title === 'סטאטוס') {
           await monday(`mutation {
-            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "{\"index\":${field.value == 'True' ? 3 : 12}}") {
+            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: ${field.value == 'True' ? `{\"index\":3,\"post_id\":null,\"changed_at\":\"${new Date()}\"}`: null}) {
               id
             }
           }`);
