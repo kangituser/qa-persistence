@@ -37,11 +37,12 @@ exports.createOrUpdateTest = async (req, res, next) => {
       // id, columns
       
       if (item_Exists) {
-        console.log('in the exists');
-        console.log(item_Exists.name);
+        // console.log('in the exists');
+        // console.log(item_Exists.name);
         let itemId = item_Exists.id;
         let itemTitle = item_Exists.name;
         let columns = item_Exists.column_values;
+        // console.log(columns);
         // update the item
         await aux.mapDataToColumns(columns, req.body, itemId, board_id);
         // add data to database

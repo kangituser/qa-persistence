@@ -9,7 +9,7 @@ module.exports = data => {
     test_desc: data.test_desc,
     desired_result: data.desired_result,
     project: data.project,
-    status: data['status'] === 'True' ? true : false,
+    status: data['status'],
     group: data.group
   }
 }

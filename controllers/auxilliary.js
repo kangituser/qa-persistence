@@ -87,7 +87,7 @@ module.exports = {
         case "פרוייקט":
           field.value = data["project"];
           break;
-        case "סטאטוס":
+        case "תוצאות":
           field.value = data["status"];
           break;
       }
@@ -105,13 +105,6 @@ module.exports = {
         if (field.type === "multiple-person" && field.title ==='אחראי') {
           await monday(`mutation {
             change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "10921644") {
-              id
-            }
-          }`);
-        }
-        if (field.type === "color" && field.title === 'סטאטוס') {
-          await monday(`mutation {
-            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: ${field.value == 'True' ? `{\"index\":3,\"post_id\":null,\"changed_at\":\"${new Date()}\"}`: null}) {
               id
             }
           }`);
