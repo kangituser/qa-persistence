@@ -25,9 +25,9 @@ const Test = dbconnect.define("Test", {
   item_name: { type: DataTypes.STRING, allowNull: true },
 });
 
-Test.addHook('beforeCreate', (test, options) => {
-  return test.setDataValue('status', test.getDataValue('status') == true ? 'עבר' : 'לא עבר');
-}) 
+// Test.addHook('beforeCreate', (test, options) => {
+//   return test.setDataValue('status', test.getDataValue('status') == true ? 'עבר' : 'לא עבר');
+// }) 
 
 Test.sync({ alter: true });
 

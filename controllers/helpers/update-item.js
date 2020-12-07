@@ -12,8 +12,10 @@ module.exports = async (groupId, groupTitle, itemId, itemName, boardId, data) =>
     aux.mapDataToColumns(itemColumns, data, itemId, boardId);
    
     let mapped = mapItem(data);
+    // console.log(mapped);
     // create the test in the data-base
-    await Test.create({ ...mapped, mondayGroupId: groupId, mondayItemId: itemId, group_name: groupTitle, item_name: itemName });
+    let created = await Test.create({ ...mapped, mondayGroupId: groupId, mondayItemId: itemId, group_name: groupTitle, item_name: itemName });
+    // console.log(created);
    } catch (err) {
      console.log(err);
    }
