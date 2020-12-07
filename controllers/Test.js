@@ -47,11 +47,12 @@ exports.createOrUpdateTest = async (req, res, next) => {
         await aux.mapDataToColumns(columns, req.body, itemId, board_id);
         // add data to database
         await updateItem(groupId, groupTitle, itemId, itemTitle, board_id, req.body );
-
+        return res.status(204).send({ message: 'item updated' });
       } else {
         console.log('in the not supposed to exist');
         // create item
         await createItem(groupId, groupTitle, ID, board_id, req.body);
+        return res.status(201).send({ message: 'item created' });
       }
 
     } else {
@@ -59,6 +60,7 @@ exports.createOrUpdateTest = async (req, res, next) => {
       let groupId = await aux.createGroup(group, board_id);
       // create item in created group
       await createItem(groupId.id, groupId.name, ID, board_id, req.body);
+      return res.status(201).send({ message: 'item created' });
     } 
   } catch (err) {
     console.log(err);
