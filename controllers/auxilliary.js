@@ -88,6 +88,8 @@ module.exports = {
           field.value = data["project"];
           break;
         case "תוצאות":
+          field.value = data["status"];
+          break;
         case "סטאטוס":
           field.value = data["status"];
           break;
@@ -98,8 +100,9 @@ module.exports = {
       console.log(field);
       try {
           if (field.type === "color" && field.title === 'סטאטוס') {
+            // change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: ${field.value == 'עבר' ? `{\"index\":3,\"post_id\":null,\"changed_at\":\"${new Date()}\"}`: null}) {
           await monday(`mutation {
-            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: ${field.value == 'עבר' ? `{\"index\":3,\"post_id\":null,\"changed_at\":\"${new Date()}\"}`: null}) {
+            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value == 'עבר' ? 3 : null}") {
               id
             }
           }`);
