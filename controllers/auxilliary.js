@@ -94,10 +94,11 @@ module.exports = {
     });
   
     fields.forEach(async field => {
+      console.log(field);
       try {
         if (field.type === "text" || field.type === "long-text") {
           await monday(`mutation {
-            change_simple_column_value(board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value}") {
+            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value}") {
               id
             }
           }`);
