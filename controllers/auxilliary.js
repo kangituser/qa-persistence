@@ -88,6 +88,7 @@ module.exports = {
           field.value = data["project"];
           break;
         case "תוצאות":
+        case "סטאטוס":
           field.value = data["status"];
           break;
       }
@@ -96,6 +97,13 @@ module.exports = {
     fields.forEach(async field => {
       console.log(field);
       try {
+          if (field.type === "color" && field.title === 'סטאטוס') {
+          await monday(`mutation {
+            change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: ${field.value == 'עבר' ? `{\"index\":3,\"post_id\":null,\"changed_at\":\"${new Date()}\"}`: null}) {
+              id
+            }
+          }`);
+        }
         if (field.type === "text" || field.type === "long-text") {
           await monday(`mutation {
             change_simple_column_value (board_id: ${boardId}, item_id: ${itemId}, column_id: "${field.id}", value: "${field.value}") {
